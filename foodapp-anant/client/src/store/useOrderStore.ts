@@ -4,7 +4,10 @@ import { toast } from "sonner";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-const API_END_POINT: string = "http://localhost:3000/api/v1/order";
+const API_END_POINT: string = `${
+  import.meta.env.VITE_BACKEND_URL || "http://localhost:3000"
+}/api/v1/order`;
+
 axios.defaults.withCredentials = true;
 
 // It's a good practice to define the full state type, including actions

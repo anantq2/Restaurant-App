@@ -6,7 +6,10 @@ import { createJSONStorage, persist } from "zustand/middleware";
 import { useRestaurantStore } from "./useRestaurantStore";
 import { MenuItem } from "@/types/restaurantType"; // Assuming MenuItem type is defined here
 
-const API_END_POINT = "http://localhost:3000/api/v1/menu";
+const API_END_POINT = `${
+  import.meta.env.VITE_BACKEND_URL || "http://localhost:3000"
+}/api/v1/menu`;
+
 
 
 // Define the state structure for clarity

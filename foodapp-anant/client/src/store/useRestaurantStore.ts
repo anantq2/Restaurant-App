@@ -5,7 +5,10 @@ import { toast } from "sonner";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-const API_END_POINT = "http://localhost:3000/api/v1/restaurant";
+const API_END_POINT = `${
+  import.meta.env.VITE_BACKEND_URL || "http://localhost:3000"
+}/api/v1/restaurant`;
+
 axios.defaults.withCredentials = true;
 
 
