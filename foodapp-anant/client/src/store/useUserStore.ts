@@ -4,9 +4,9 @@ import axios, { isAxiosError } from "axios";
 import { LoginInputState, SignupInputState } from "@/schema/userSchema";
 import { toast } from "sonner";
 
-const API_END_POINT = `${
-  import.meta.env.VITE_BACKEND_URL || "http://localhost:3000"
-}/api/v1/user`;
+// const API_END_POINT = `${ "http://localhost:3000"
+// }/api/v1/menu`;
+const API_END_POINT = `${import.meta.env.VITE_BACKEND_URL}/api/v1/user`;
 
 axios.defaults.withCredentials = true;
 
