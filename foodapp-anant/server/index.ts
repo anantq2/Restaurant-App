@@ -32,7 +32,7 @@ app.use(cookieParser());
 const corsOptions = {
   origin: [
     "http://localhost:5173",
-    "https://restaurant-frontend-anant.onrender.com"
+    "https://restaurant-app-1-d814.onrender.com"
   ],
   credentials: true
 };
