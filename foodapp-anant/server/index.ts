@@ -38,7 +38,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-
+app.options('*', cors(corsOptions));
 
 // api
 app.use("/api/v1/user", userRoute);
