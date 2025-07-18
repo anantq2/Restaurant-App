@@ -32,15 +32,12 @@ app.use(cookieParser());
 const corsOptions = {
   origin: [
     "http://localhost:5173",
-    "https://restaurant-app-1-d814.onrender.com"
+    "https://restaurant-app-1-d8t4.onrender.com" // sahi Render URL
   ],
   credentials: true
 };
-
 app.use(cors(corsOptions));
 
-
-app.use(cors(corsOptions));
 
 
 // api
