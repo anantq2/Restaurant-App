@@ -26,12 +26,13 @@ export const signup = async (req: Request, res: Response) => {
             email,
             password: hashedPassword,
             contact: Number(contact),
-            verificationToken,
-            verificationTokenExpiresAt: Date.now() + 24 * 60 * 60 * 1000,
+            isVerified: true,
+            // verificationToken,
+            // verificationTokenExpiresAt: Date.now() + 24 * 60 * 60 * 1000,
         })
-        generateToken(res,user);
+        // generateToken(res,user);
 
-        await sendVerificationEmail(email, verificationToken);
+        // await sendVerificationEmail(email, verificationToken);
 
         const userWithoutPassword = await User.findOne({ email }).select("-password");
         return res.status(201).json({
