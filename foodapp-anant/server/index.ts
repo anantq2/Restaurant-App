@@ -33,7 +33,7 @@ const corsOptions = {
   origin: [
     "http://localhost:5173",
     "https://restaurant-app-1-d8t4.onrender.com" ,
-    "https://restaurant-app-psi-virid.vercel.app"
+    "https://ananteats.vercel.app/"
   ],
   credentials: true
 };
