@@ -148,6 +148,7 @@ export const useUserStore = createWithEqualityFn<UserState>()(
             toast.error("An unexpected error occurred during logout.");
           }
         } finally {
+          localStorage.removeItem("user-store");
           set({ user: null, isAuthenticated: false, loading: false });
         }
       },
