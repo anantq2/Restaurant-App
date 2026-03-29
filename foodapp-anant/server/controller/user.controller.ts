@@ -18,33 +18,40 @@ export const signup = async (req: Request, res: Response) => {
                 message: "User already exist with this email"
             })
         }
+
         const hashedPassword = await bcrypt.hash(password, 10);
-        const verificationToken =  generateVerificationCode();
+
+        const verificationToken = generateVerificationCode(); // 6-digit OTP or token
+        const verificationTokenExpiresAt = Date.now() + 24 * 60 * 60 * 1000; // 24 hrs
+
+        console.log("👉 Your OTP (verificationToken):", verificationToken);
 
         user = await User.create({
             fullname,
             email,
             password: hashedPassword,
             contact: Number(contact),
-            isVerified: true,
-            // verificationToken,
-            // verificationTokenExpiresAt: Date.now() + 24 * 60 * 60 * 1000,
-        })
-        // generateToken(res,user);
+            isVerified: false,                   // *** IMPORTANT ***
+            verificationToken: verificationToken,
+            verificationTokenExpiresAt: verificationTokenExpiresAt
+        });
 
         // await sendVerificationEmail(email, verificationToken);
 
         const userWithoutPassword = await User.findOne({ email }).select("-password");
+
         return res.status(201).json({
             success: true,
-            message: "Account created successfully",
-            user: userWithoutPassword
+            message: "Account created successfully. Please verify your email.",
+            user: userWithoutPassword,
         });
+
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: "Internal server error" })
     }
 };
+
 export const login = async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body;
@@ -109,16 +116,25 @@ export const verifyEmail = async (req: Request, res: Response) => {
     }
 }
 export const logout = async (_: Request, res: Response) => {
-    try {
-        return res.clearCookie("token").status(200).json({
-            success: true,
-            message: "Logged out successfully."
-        });
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({ message: "Internal server error" })
-    }
+  try {
+    res.cookie("token", "", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      expires: new Date(0), // ← important: expire immediately
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Logged out successfully.",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
 };
+
+
 export const forgotPassword = async (req: Request, res: Response) => {
     try {
         const { email } = req.body;
