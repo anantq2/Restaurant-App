@@ -117,7 +117,7 @@ const HereSection = () => {
       <div className="absolute left-[-5rem] top-16 h-64 w-64 rounded-full bg-orange/20 blur-3xl dark:bg-orange/10" />
       <div className="absolute right-[-4rem] top-24 h-80 w-80 rounded-full bg-zinc-900/10 blur-3xl dark:bg-white/10" />
 
-      <div className="relative mx-auto max-w-7xl px-4 py-6 md:px-6 md:py-10">
+      <div className="relative mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 md:py-10">
         <section className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div className="space-y-6 animate-in fade-in slide-in-from-left-8 duration-700">
             <Badge
@@ -136,7 +136,7 @@ const HereSection = () => {
               </h1>
               <p className="max-w-2xl text-base leading-7 text-zinc-600 dark:text-zinc-300 md:text-lg">
                 Search fast, discover better kitchens, and move from
-                &nbsp;“kya khaayein?” to checkout without wading through boring
+                &nbsp;"kya khaayein?" to checkout without wading through boring
                 cards. AnantEats is now tuned for appetite and speed.
               </p>
             </div>
