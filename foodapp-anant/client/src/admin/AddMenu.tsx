@@ -16,6 +16,7 @@ import EditMenu from "./EditMenu";
 import { MenuFormSchema, menuSchema } from "@/schema/menuSchema";
 import { useMenuStore } from "@/store/useMenuStore";
 import { useRestaurantStore } from "@/store/useRestaurantStore";
+import { MenuItem } from "@/types/restaurantType";
  
 
 const AddMenu = () => {
@@ -27,7 +28,7 @@ const AddMenu = () => {
   });
   const [open, setOpen] = useState<boolean>(false);
   const [editOpen, setEditOpen] = useState<boolean>(false);
-  const [selectedMenu, setSelectedMenu] = useState<any>();
+  const [selectedMenu, setSelectedMenu] = useState<MenuItem | null>(null);
   const [error, setError] = useState<Partial<MenuFormSchema>>({});
   const { loading, createMenu } = useMenuStore();
   const {restaurant} = useRestaurantStore();
@@ -160,8 +161,8 @@ const AddMenu = () => {
           </DialogContent>
         </Dialog>
       </div>
-      {restaurant?.menus.map((menu: any, idx: number) => (
-        <div key={idx} className="mt-6 space-y-4">
+      {restaurant?.menus.map((menu: MenuItem) => (
+        <div key={menu._id} className="mt-6 space-y-4">
           <div className="flex flex-col md:flex-row md:items-center md:space-x-4 md:p-4 p-2 shadow-md rounded-lg border">
             <img
               src={menu.image}
@@ -174,7 +175,7 @@ const AddMenu = () => {
               </h1>
               <p className="text-sm tex-gray-600 mt-1">{menu.description}</p>
               <h2 className="text-md font-semibold mt-2">
-                Price: <span className="text-[#D19254]">80</span>
+                Price: <span className="text-[#D19254]">Rs {menu.price}</span>
               </h2>
             </div>
             <Button

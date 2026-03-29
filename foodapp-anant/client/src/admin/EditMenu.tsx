@@ -26,7 +26,7 @@ const EditMenu = ({
   editOpen,
   setEditOpen,
 }: {
-  selectedMenu: MenuItem;
+  selectedMenu: MenuItem | null;
   editOpen: boolean;
   setEditOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
@@ -46,6 +46,10 @@ const EditMenu = ({
 
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!selectedMenu) {
+      return;
+    }
+
     const result = menuSchema.safeParse(input);
     if (!result.success) {
       const fieldErrors = result.error.formErrors.fieldErrors;

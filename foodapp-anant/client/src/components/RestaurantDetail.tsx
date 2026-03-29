@@ -7,19 +7,21 @@ import { useParams } from "react-router-dom";
 
 const RestaurantDetail = () => {
   const params = useParams();
+  const restaurantId = params.id;
   const { singleRestaurant, getSingleRestaurant } = useRestaurantStore();
 
   useEffect(() => {
-    getSingleRestaurant(params.id!); 
-    
-  }, [params.id]);
+    if (restaurantId) {
+      getSingleRestaurant(restaurantId);
+    }
+  }, [getSingleRestaurant, restaurantId]);
 
   return (
     <div className="max-w-6xl mx-auto my-10">
       <div className="w-full">
         <div className="relative w-full h-32 md:h-64 lg:h-72">
           <img
-            src={singleRestaurant?.imageUrl || "Loading..."}
+            src={singleRestaurant?.imageUrl ?? ""}
             alt="res_image"
             className="object-cover w-full h-full rounded-lg shadow-lg"
           />
@@ -42,7 +44,7 @@ const RestaurantDetail = () => {
             </div>
           </div>
         </div>
-       {singleRestaurant?.menus && <AvailableMenu menus = {singleRestaurant?.menus!}/>} 
+       {singleRestaurant?.menus && <AvailableMenu menus={singleRestaurant.menus} />} 
       </div>
     </div>
   );

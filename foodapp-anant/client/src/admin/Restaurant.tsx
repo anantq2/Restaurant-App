@@ -67,25 +67,25 @@ const Restaurant = () => {
   };
 
   useEffect(() => {
-    const fetchRestaurant = async () => {
-      await getRestaurant();
-      if(restaurant){
-        setInput({
-          restaurantName: restaurant.restaurantName || "",
-          city: restaurant.city || "",
-          country: restaurant.country || "",
-          deliveryTime: restaurant.deliveryTime || 0,
-          cuisines: restaurant.cuisines
-            ? restaurant.cuisines.map((cuisine: string) => cuisine)
-            : [],
-          imageFile: undefined,
-        });
-      };
-      }
-    fetchRestaurant();
-    console.log(restaurant);
-    
-  }, []);
+    getRestaurant();
+  }, [getRestaurant]);
+
+  useEffect(() => {
+    if (!restaurant) {
+      return;
+    }
+
+    setInput({
+      restaurantName: restaurant.restaurantName || "",
+      city: restaurant.city || "",
+      country: restaurant.country || "",
+      deliveryTime: restaurant.deliveryTime || 0,
+      cuisines: restaurant.cuisines
+        ? restaurant.cuisines.map((cuisine: string) => cuisine)
+        : [],
+      imageFile: undefined,
+    });
+  }, [restaurant]);
 
   return (
     <div className="max-w-6xl mx-auto my-10">

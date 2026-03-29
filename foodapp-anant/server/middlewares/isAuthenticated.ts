@@ -1,15 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
-// Extend Express Request type globally to include `id`
-declare global {
-  namespace Express {
-    interface Request {
-      id?: string; // use optional chaining for safety
-    }
-  }
-}
-
 export const isAuthenticated = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const token = req.cookies?.token;
@@ -36,9 +27,9 @@ export const isAuthenticated = async (req: Request, res: Response, next: NextFun
     next();
   } catch (error) {
     console.error("JWT verification error:", error);
-    return res.status(500).json({
+    return res.status(401).json({
       success: false,
-      message: "Internal server error",
+      message: "Invalid or expired token",
     });
   }
 };

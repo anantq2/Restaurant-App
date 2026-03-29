@@ -13,6 +13,7 @@ import { Restaurant } from "@/types/restaurantType";
 
 const SearchPage = () => {
   const params = useParams();
+  const searchText = params.text ?? "";
   const [searchQuery, setSearchQuery] = useState<string>("");
   const {
     loading,
@@ -23,8 +24,10 @@ const SearchPage = () => {
   } = useRestaurantStore();
 
   useEffect(() => {
-    searchRestaurant(params.text!, searchQuery, appliedFilter);
-  }, [params.text!, appliedFilter]);
+    if (searchText) {
+      searchRestaurant(searchText, searchQuery, appliedFilter);
+    }
+  }, [appliedFilter, searchQuery, searchRestaurant, searchText]);
 
   return (
     <div className="max-w-7xl mx-auto my-10">
@@ -40,9 +43,7 @@ const SearchPage = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
             />
             <Button
-              onClick={() =>
-                searchRestaurant(params.text!, searchQuery, appliedFilter)
-              }
+              onClick={() => searchRestaurant(searchText, searchQuery, appliedFilter)}
               className="bg-orange hover:bg-hoverOrange"
             >
               Search
@@ -82,7 +83,7 @@ const SearchPage = () => {
               {loading ? (
                 <SearchPageSkeleton />
               ) : !loading && searchedRestaurant?.data.length === 0 ? (
-                <NoResultFound searchText={params.text!} />
+                <NoResultFound searchText={searchText} />
               ) : (
                 searchedRestaurant?.data.map((restaurant: Restaurant) => (
                   <Card
