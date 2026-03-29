@@ -76,12 +76,26 @@ const tasteBoards = [
 const HereSection = () => {
   const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
-  const user = useUserStore((state) => state.user);
+  const { user, isAuthenticated } = useUserStore((state) => ({
+    user: state.user,
+    isAuthenticated: state.isAuthenticated,
+  }));
 
   const firstName = user?.fullname?.split(" ")[0] || "Foodie";
-  const isAdmin = Boolean(user?.admin);
-  const profileTarget = isAdmin ? "/admin/restaurant" : "/profile";
-  const profileLabel = isAdmin ? "Open Dashboard" : "Edit Profile";
+  const isAdmin = Boolean(isAuthenticated && user?.admin);
+  const profileTarget = !isAuthenticated
+    ? "/login"
+    : isAdmin
+      ? "/admin/restaurant"
+      : "/profile";
+  const profileLabel = !isAuthenticated
+    ? "Login to Order"
+    : isAdmin
+      ? "Open Dashboard"
+      : "Edit Profile";
+  const eyebrowLabel = isAuthenticated
+    ? `Welcome back, ${firstName}`
+    : "Fresh delivery experience";
 
   const handleSearch = (value: string) => {
     const query = value.trim();
@@ -115,7 +129,7 @@ const HereSection = () => {
 
             <div className="space-y-4">
               <p className="text-sm font-medium uppercase tracking-[0.3em] text-zinc-500 dark:text-zinc-400">
-                Welcome back, {firstName}
+                {eyebrowLabel}
               </p>
               <h1 className="max-w-3xl text-4xl font-black leading-tight tracking-tight text-zinc-950 dark:text-white md:text-6xl">
                 Good food deserves a homepage that feels hungry.

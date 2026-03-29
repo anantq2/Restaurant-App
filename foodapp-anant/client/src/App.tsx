@@ -60,18 +60,35 @@ const AdminRoute = ({ children }: ProtectedProps) => {
 const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <ProtectedRoutes>
-        <MainLayout />
-      </ProtectedRoutes>
-    ),
+    element: <MainLayout />,
     children: [
       { path: "/", element: <HereSection /> },
-      { path: "profile", element: <Profile /> },
       { path: "search/:text", element: <SearchPage /> },
       { path: "restaurant/:id", element: <RestaurantDetail /> },
-      { path: "cart", element: <Cart /> },
-      { path: "order/status", element: <Success /> },
+      {
+        path: "profile",
+        element: (
+          <ProtectedRoutes>
+            <Profile />
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: "cart",
+        element: (
+          <ProtectedRoutes>
+            <Cart />
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: "order/status",
+        element: (
+          <ProtectedRoutes>
+            <Success />
+          </ProtectedRoutes>
+        ),
+      },
 
       // Admin routes
       {
