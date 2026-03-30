@@ -40,11 +40,11 @@ const Footer = () => {
             </div>
 
             <h2 className="mt-5 max-w-lg text-3xl font-black tracking-tight">
-              Cleaner discovery, faster cravings, better-looking screens.
+              Cravings first. Everything else stays simple.
             </h2>
             <p className="mt-4 max-w-xl text-sm leading-7 text-white/70 md:text-base">
-              Browse restaurants, jump into trending cravings, and move to
-              checkout with less clutter and better flow.
+              Search dishes, browse restaurants, and pick up where you left off
+              from profile, cart, or orders.
             </p>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
@@ -116,7 +116,7 @@ const Footer = () => {
 
         <div className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-6 text-sm text-white/55 md:flex-row md:items-center md:justify-between">
           <p>&copy; {currentYear} AnantEats. All rights reserved.</p>
-          <p>Designed to feel faster, clearer, and more intentional.</p>
+          <p>Built for quick cravings and easy reorders.</p>
         </div>
       </div>
     </footer>
